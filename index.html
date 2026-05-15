@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Visibility Starter Audit</title>
+  <meta name="description" content="A fixed-price AI readiness audit for businesses that want AI assistants to access, understand, and describe their website accurately.">
+  <style>
+    :root {
+      --ink: #17130f;
+      --muted: #6e6257;
+      --paper: #f4efe5;
+      --panel: #fffaf0;
+      --line: #d8cdbd;
+      --green: #0a6b61;
+      --red: #d84a2b;
+      --gold: #d39c20;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 18% 12%, rgba(216,74,43,.13), transparent 28%),
+        linear-gradient(90deg, rgba(23,19,15,.045) 1px, transparent 1px),
+        linear-gradient(rgba(23,19,15,.035) 1px, transparent 1px),
+        var(--paper);
+      background-size: auto, 34px 34px, 34px 34px, auto;
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.42;
+    }
+    a { color: inherit; }
+    .shell { max-width: 1160px; margin: 0 auto; padding: 28px 22px 72px; }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 28px;
+      font: 700 13px/1.1 ui-monospace, SFMono-Regular, Menlo, monospace;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+    nav { display: flex; gap: 18px; color: var(--muted); }
+    .hero {
+      min-height: calc(100vh - 140px);
+      display: grid;
+      grid-template-columns: 1.12fr .88fr;
+      gap: 38px;
+      align-items: center;
+      border-top: 3px solid var(--ink);
+      border-bottom: 3px solid var(--ink);
+      padding: 42px 0;
+    }
+    .kicker {
+      color: var(--red);
+      font: 800 14px/1.1 ui-monospace, SFMono-Regular, Menlo, monospace;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    h1 {
+      max-width: 790px;
+      margin: 14px 0 18px;
+      font-size: clamp(44px, 7.4vw, 92px);
+      line-height: .88;
+      letter-spacing: 0;
+    }
+    h2 { margin: 0 0 16px; font-size: clamp(28px, 4vw, 48px); line-height: .95; }
+    h3 { margin: 0 0 8px; font-size: 23px; }
+    p { color: var(--muted); font-size: 18px; margin: 0 0 18px; }
+    .lede { max-width: 690px; font-size: 22px; color: #40372f; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 18px;
+      border: 2px solid var(--ink);
+      background: var(--ink);
+      color: #fff8ea;
+      text-decoration: none;
+      box-shadow: 5px 5px 0 var(--red);
+      font: 800 14px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .button.secondary { background: var(--panel); color: var(--ink); box-shadow: 5px 5px 0 var(--green); }
+    .proof {
+      border: 3px solid var(--ink);
+      background: rgba(255,250,240,.9);
+      box-shadow: 12px 12px 0 var(--ink);
+      padding: 22px;
+      transform: rotate(1deg);
+    }
+    .stamp {
+      display: inline-grid;
+      place-items: center;
+      width: 138px;
+      aspect-ratio: 1;
+      border: 3px solid var(--red);
+      border-radius: 50%;
+      color: var(--red);
+      font: 900 17px/.95 ui-monospace, SFMono-Regular, Menlo, monospace;
+      text-transform: uppercase;
+      text-align: center;
+      transform: rotate(-12deg);
+      float: right;
+      margin: 0 0 12px 16px;
+    }
+    .terminal {
+      clear: both;
+      margin-top: 22px;
+      background: #1d1813;
+      color: #fff2dc;
+      border: 2px solid var(--ink);
+      padding: 18px;
+      font: 14px/1.55 ui-monospace, SFMono-Regular, Menlo, monospace;
+      overflow: auto;
+    }
+    section { padding: 58px 0; border-bottom: 2px solid var(--ink); }
+    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+    .card {
+      background: rgba(255,250,240,.88);
+      border: 2px solid var(--ink);
+      padding: 22px;
+      box-shadow: 6px 6px 0 rgba(23,19,15,.9);
+    }
+    .card strong {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--green);
+      font: 900 13px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .price {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+    .price-tag {
+      display: grid;
+      place-items: center;
+      min-height: 250px;
+      background: var(--green);
+      color: #fff8ea;
+      border: 3px solid var(--ink);
+      box-shadow: 10px 10px 0 var(--ink);
+      text-align: center;
+    }
+    .price-tag span { display: block; font: 900 78px/.85 Georgia, "Times New Roman", serif; }
+    .price-tag small { display: block; margin-top: 8px; font: 800 14px/1.2 ui-monospace, SFMono-Regular, Menlo, monospace; text-transform: uppercase; }
+    ol, ul { padding-left: 22px; color: #322b25; }
+    li { margin: 9px 0; }
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
+    .note {
+      padding: 18px;
+      border-left: 8px solid var(--red);
+      background: rgba(255,250,240,.9);
+      color: var(--muted);
+      font-size: 17px;
+    }
+    footer { padding-top: 28px; color: var(--muted); font-size: 15px; }
+    @media (max-width: 850px) {
+      .shell { padding: 20px 15px 52px; }
+      header, nav { align-items: flex-start; flex-direction: column; }
+      .hero, .grid, .price, .split { grid-template-columns: 1fr; }
+      .hero { min-height: auto; }
+      .proof { transform: none; box-shadow: 7px 7px 0 var(--ink); }
+      .stamp { width: 112px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div>AI Visibility Starter Audit</div>
+      <nav>
+        <a href="#deliverables">Deliverables</a>
+        <a href="#price">Price</a>
+        <a href="#workflow">Workflow</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+        <div class="kicker">Fixed-scope readiness audit for the AI search era</div>
+          <h1>Can AI assistants understand your business?</h1>
+          <p class="lede">I check whether your website is accessible, structured, and clear enough for AI assistants to read and summarize accurately. You get a plain-English report, priority fixes, and a copy-ready source-of-truth draft.</p>
+          <div class="actions">
+            <a class="button" href="mailto:worthit.tuliai@gmail.com?subject=AI%20Visibility%20Starter%20Audit&body=Hi%20Juan%2C%0A%0AI%20want%20an%20AI%20Visibility%20Starter%20Audit.%0A%0AWebsite%3A%20%0ABusiness%20name%3A%20%0ATop%20services%3A%20%0ATarget%20customer%20or%20location%3A%20%0A%0A">Request audit</a>
+            <a class="button secondary" href="reports/example-audit.html">View sample report</a>
+          </div>
+        </div>
+        <aside class="proof">
+          <div class="stamp">24-48h<br>audit</div>
+          <h3>Starter checks</h3>
+          <p>No retainer. No ranking promises. Just practical readiness work: crawler access, sitemap, homepage clarity, JSON-LD, FAQ schema, source-of-truth content, and a prioritized fix list.</p>
+          <div class="terminal">python3 agent_visibility_audit.py https://example.com \<br>  --out reports/example-audit.md \<br>  --html-out reports/example-audit.html</div>
+        </aside>
+      </section>
+
+      <section id="deliverables">
+        <h2>What the buyer gets</h2>
+        <div class="grid">
+          <div class="card"><strong>Access</strong><h3>Crawler readiness</h3><p>Checks homepage status, robots.txt, sitemap.xml, and whether common AI crawlers are explicitly handled.</p></div>
+          <div class="card"><strong>Clarity</strong><h3>Homepage signals</h3><p>Reviews title, meta description, H1, internal links, and whether the site states the business clearly.</p></div>
+          <div class="card"><strong>Structure</strong><h3>Schema and source content</h3><p>Detects JSON-LD types and prepares a concise AI-readable source-of-truth draft.</p></div>
+        </div>
+      </section>
+
+      <section id="price">
+        <div class="price">
+          <div class="price-tag"><div><span>$149</span><small>fixed starter audit</small></div></div>
+          <div class="card">
+            <h2>Simple path to $100/day</h2>
+            <p>One audit sale clears the daily target. The scope is intentionally small enough to fulfill without website credentials, then implementation can be sold only if the buyer asks for it.</p>
+            <ul>
+              <li>Starter Audit: $149</li>
+              <li>Install source-of-truth file after crawl checks: $99</li>
+              <li>FAQ blocks plus FAQ schema: $190</li>
+              <li>Full starter implementation pack: $390</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="workflow">
+        <div class="split">
+          <div>
+            <h2>Delivery workflow</h2>
+            <ol>
+              <li>Buyer sends URL and short intake form.</li>
+              <li>Human sends a public payment link or invoice.</li>
+              <li>Run the audit and manually review the top pages.</li>
+              <li>Deliver report, prioritized fixes, and source-of-truth draft.</li>
+              <li>Offer implementation only after approval.</li>
+            </ol>
+          </div>
+          <div class="note">Important boundary: never ask for PayPal passwords, bank details, CMS credentials, private customer data, or API keys for the starter audit.</div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="split">
+          <div>
+            <h2>Ready to check a site?</h2>
+            <p>Send the website URL and business category. I will reply with the fixed scope, next available delivery window, and payment instructions.</p>
+            <div class="actions">
+              <a class="button" href="mailto:worthit.tuliai@gmail.com?subject=AI%20Visibility%20Starter%20Audit&body=Hi%20Juan%2C%0A%0AI%20want%20an%20AI%20Visibility%20Starter%20Audit.%0A%0AWebsite%3A%20%0ABusiness%20name%3A%20%0ATop%20services%3A%20%0ATarget%20customer%20or%20location%3A%20%0A%0A">Email worthit.tuliai@gmail.com</a>
+            </div>
+          </div>
+          <div class="note">Payment link is created only after a buyer confirms interest. No passwords, CMS access, or private customer data are needed for the starter audit.</div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      Contact: worthit.tuliai@gmail.com. No ranking guarantees; this is a practical readiness audit.
+    </footer>
+  </div>
+</body>
+</html>
